@@ -4,7 +4,7 @@
     <div v-if="alert==true" id="edition_layer">
       <div   v-if="edition_en_cours==true" class="card centred pop_up">
         <form v-on:submit="edit_restaurant(event)">
-          <h3>Modiffier les informations</h3>
+          <h3>Modiffier  informations</h3>
           Nom : <input type="text" name="nom" v-model="en_edition.name">
 
 
