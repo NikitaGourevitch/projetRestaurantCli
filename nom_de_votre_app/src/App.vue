@@ -1,33 +1,8 @@
 <template>
   <div id="app">
-    <h1>Resto à la carte</h1>
-    <div v-if="alert==true" id="edition_layer">
-      <div   v-if="edition_en_cours==true" class="card centred pop_up">
-        <form v-on:submit="edit_restaurant(event)">
-          <h3>Modiffier informations</h3>
-          Nom : <input type="text" name="nom" v-model="en_edition.name">
-
-
-          Cuisine : <input style="margin-bottom: 15px" type="text" name="cuisine" v-model="en_edition.cuisine">
-          <div class="button blue" v-on:click="abort_edition()" style="float:left;">Annuler </div>
-          <button class="button green" style="float:right;" >Sauvegarder </button>
-        </form>
-
-
-      </div>
-      <div  v-if="creation_en_cours==true"  class="card centred pop_up">
-        <h3>Nouveau Restaurant</h3>
-        <form   v-on:submit="ajouterRestaurant(event)(event)">
-          Nom:
-          <input type="text" name="nom" v-model="nom">
-          Cuisine:
-          <input style="margin-bottom: 15px" type="text" name="cuisine" v-model="cuisine">
-          <div class="button blue" v-on:click="abort_edition()"style="float:left;">Annuler </div>
-          <button class="button green" style="float:right;" >Rajouter</button>
-        </form>
-
-      </div>
-    </div>
+    <h1><edit :alert="alert"></edit></h1>
+    <h1>Resto à la carte {{ page }}</h1>
+    
 
     <div class="card centred" id="main_container">
 
@@ -66,19 +41,19 @@
 
 
       <div id="pagination">
-        <div v-if="page!=0" class="pagination_element button blue"v-on:click="premiere_page()">first</div>
-        <div v-if="page!=0"class=" pagination_element " v-on:click="pagePrecedente()">
+        <div v-if="page!=0" class="pagination_element button blue" v-on:click="premiere_page()">first</div>
+        <div v-if="page!=0" class="pagination_element " v-on:click="pagePrecedente()">
           <div class=" icon_button button blue" style="float: right" >
             <img class=" actionIcon" src="src/img/prev.png">
           </div>
         </div>
         <div class=" pagination_element" style="padding-top:5px">{{page + 1}} / {{ pageMax()+1}}</div>
-        <div v-if="page!= pageMax()"class=" pagination_element " v-on:click="pageSuivante()">
+        <div v-if="page!= pageMax()" class=" pagination_element " v-on:click="pageSuivante()">
           <div class=" icon_button button blue" >
             <img class="actionIcon " src="src/img/next.png">
           </div>
         </div>
-        <div v-if="page!= pageMax()"class=" pagination_element button blue" v-on:click=" derniere_page()">last</div>
+        <div v-if="page!= pageMax()" class=" pagination_element button blue" v-on:click=" derniere_page()">last</div>
       </div>
     </div>
   </div>
@@ -87,34 +62,29 @@
 
 <script>
 
-  import {debounce} from "lodash";
+import {debounce} from "lodash"
+import Resto from './class/Restaurants.js'
 export default {
   data() {
     return {
-      restaurants: [{
-        nom: 'café de Paris',
-        cuisine: 'Française',
-      },
-        {
-          nom: 'Sun City Café',
-          cuisine: 'Américaine',
-        }
-      ],
       alert: false,
-      creation_en_cours: false,
-      edition_en_cours: false,
+      creation_en_cours: Resto.creation_en_cours,
+      edition_en_cours: Resto.edition_en_cours,
       en_edition: {
-        name: '',
-        cuisine: '',
-        _id: ""
+        name: Resto.en_edition.name,
+        cuisine: Resto.en_edition.cuisine,
+        _id: Resto.en_edition._id
       },
-      nom: '',
-      cuisine: '',
-      nbRestaurants: 0,
-      page: 0,
-      nbRestaurantsParPage: 5,
-      nomRecherche: ""
+      nom: Resto.nom,
+      cuisine: Resto.cuisine,
+      nbRestaurants: Resto.nbRestaurants,
+      page: Resto.page,
+      nbRestaurantsParPage: Resto.nbRestaurantsParPage,
+      nomRecherche: Resto.nomRecherche
     }
+  },
+  computed:{
+    restaurants: function() {return Resto.restaurants}
   },
   mounted(){
     console.log("AVANT AFFICHAGE");
@@ -122,199 +92,85 @@ export default {
   },
   methods: {
     getRestaurantsFromServer() {
-      let url = "http://localhost:8080/api/restaurants?page=" +
-        this.page + "&name=" + this.nomRecherche +
-        "&pagesize=" + this.nbRestaurantsParPage;
-
-      console.log("Je vais chercher les restaurants sur : "+ url)
-
-      fetch(url)
-        .then((reponseJSON) => {
-          //console.log("reponse json");
-          return reponseJSON.json();
-        })
-        .then((reponseJS) => {
-          // ici on a une réponse en JS
-          this.restaurants = reponseJS.data;
-          this.nbRestaurants = reponseJS.count;
-
-        })
-        .catch((err) => {
-          console.log("Une erreur est intervenue " + err);
-        })
+      Resto.getRestaurantsFromServer()
+    },
+    getdata(){
+      return {
+        alert: false,
+        creation_en_cours: Resto.creation_en_cours,
+        edition_en_cours: Resto.edition_en_cours,
+        en_edition: {
+          name: Resto.en_edition.name,
+          cuisine: Resto.en_edition.cuisine,
+          _id: Resto.en_edition._id
+        },
+        nom: Resto.nom,
+        cuisine: Resto.cuisine,
+        nbRestaurants: Resto.nbRestaurants,
+        page: Resto.page,
+        nbRestaurantsParPage: Resto.nbRestaurantsParPage,
+        nomRecherche: Resto.nomRecherche
+        }
     },
 
     // _.debounce vient de lodash et permet de n'appeler getRestaurantsFromServer que lorsqu'on a arrêté de taper
     // pendant 300ms, ça évite d'envoyer une requête au serveur à chaque touche...
     searchRestaurantsFromServer: debounce(
       function () {
-        this.getRestaurantsFromServer();
+      this.getRestaurantsFromServer();
       }, 300),
 
-
     supprimerRestaurant(id) {
-      let url = "http://localhost:8080/api/restaurants/"+id;
-
-      fetch(url, {
-        method: "DELETE",
-      })
-        .then((responseJSON) => {
-          responseJSON.json()
-            .then((res) => { // arrow function préserve le this
-              // Maintenant res est un vrai objet JavaScript
-              console.log("Restaurant supprimé");
-              this.getRestaurantsFromServer();
-            });
-        })
-        .catch(function (err) {
-          console.log(err);
-        });
+      Resto.supprimerRestaurant(id)
     },
+
     abort_edition(){
-      this.alert=false;
-      this.creation_en_cours=false;
-      this.edition_en_cours=false;
-      this.en_edition.nom ='';
-      this.en_edition.cuisine = '';
-      this.en_edition.id = '';
-      this.nom = "";
-      this.cuisine = "";
+      Resto.abort_edition()
     },
+
     open_create_restaurant(){
-      this.alert=true;
-      this.creation_en_cours=true;
+      Resto.open_create_restaurant()
     },
+
     open_edit_restaurant(r){
-      console.log(r);
-      this.en_edition.name = r.name;
-      this.en_edition.cuisine = r.cuisine;
-      this.en_edition._id = r._id;
-
-      console.log(this.en_edition);
-      this.alert=true;
-      this.edition_en_cours=true;
+      Resto.open_edit_restaurant(r)
     },
+
+
     edit_restaurant(event){
-
-      event.preventDefault();
-
-      // Récupération du formulaire. Pas besoin de document.querySelector
-      // ou document.getElementById puisque c'est le formulaire qui a généré
-      // l'événement
-      let form = event.target;
-
-      // Récupération des valeurs des champs du formulaire
-      // en prévision d'un envoi multipart en ajax/fetch
-      let donneesFormulaire = new FormData(form);
-
-      let url = "http://localhost:8080/api/restaurants/"+this.en_edition._id;
-      console.log("edition",donneesFormulaire);
-      fetch(url, {
-        method: "PUT",
-        body: donneesFormulaire
-
-      })
-        .then((responseJSON) => {
-          responseJSON.json()
-            .then((res) => { // arrow function préserve le this
-              // Maintenant res est un vrai objet JavaScript
-              console.log("Restaurant inséré");
-
-              // remettre le formulaire à zéro
-              this.en_edition.nom ='';
-              this.en_edition.cuisine = '';
-              this.en_edition.id = '';
-              this.getRestaurantsFromServer();console.log(this.alert);
-              this.alert=false;
-              this.edition_en_cours_en_cours=false;
-            });
-        })
-        .catch(function (err) {
-          console.log(err);
-
-        });
-
+      Resto.edit_restaurant(event)
     },
 
     ajouterRestaurant(event) {
-      // On récupère le formulaire
-      // on l'envoie en multipart sur le serveur
-      // Pour éviter que la page ne se ré-affiche
-      event.preventDefault();
-
-      // Récupération du formulaire. Pas besoin de document.querySelector
-      // ou document.getElementById puisque c'est le formulaire qui a généré
-      // l'événement
-      let form = event.target;
-
-      // Récupération des valeurs des champs du formulaire
-      // en prévision d'un envoi multipart en ajax/fetch
-      let donneesFormulaire = new FormData(form);
-
-      let url = "http://localhost:8080/api/restaurants";
-
-      fetch(url, {
-        method: "POST",
-        body: donneesFormulaire
-      })
-        .then((responseJSON) => {
-          responseJSON.json()
-            .then((res) => { // arrow function préserve le this
-              // Maintenant res est un vrai objet JavaScript
-              console.log("Restaurant inséré");
-
-              // remettre le formulaire à zéro
-              this.nom = "";
-              this.cuisine = "";
-              this.alert=false;
-              this.getRestaurantsFromServer();console.log(this.alert);
-              this.creation_en_cours=false;
-            });
-        })
-        .catch(function (err) {
-          console.log(err);
-        });
-
+      Resto.ajouterRestaurant(event)
     },
+
     getColor(index) {
-      return (index == 4) ? 'pink' : 'orange';
+      return Resto.getColor(index)
     },
+
     pagePrecedente() {
-      if (this.page > 0) {
-        this.page--;
-        this.getRestaurantsFromServer();
-      }
+      Resto.pagePrecedente()
     },
+
     pageSuivante() {
-      this.page++;
-      this.getRestaurantsFromServer();
+      Resto.pageSuivante()
     },
+
     pageMax(){
-      let pagemax = 0
-      if (this.nbRestaurants%this.nbRestaurantsParPage != 0){
-        pagemax = (this.nbRestaurants - this.nbRestaurants%this.nbRestaurantsParPage )/ this.nbRestaurantsParPage  ;
-      }
-      else {
-        pagemax = (this.nbRestaurants)/ this.nbRestaurantsParPage  -1;
-      }
-      return pagemax
+      return Resto.pageMax()
     },
 
     derniere_page() {
-      this.page = this.pageMax();
-      console.log((this.nbRestaurants+1)%10);
-      this.getRestaurantsFromServer();
+      Resto.derniere_page()
     },
 
     premiere_page() {
-      this.page=0;
-      this.getRestaurantsFromServer();
+      Resto.premiere_page()
     },
 
-
     changePageSize() {
-      this.page=0;
-      this.getRestaurantsFromServer();
+      Resto.changePageSize()
     }
   }
 }
