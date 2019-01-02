@@ -1,4 +1,4 @@
-# projet_restaurant_app
+# Projet Restaurants CLI
 
 > projet vue js tp 
 
