@@ -1,21 +1,21 @@
 <template>
   <div id="app">
-    <h1><edit :alert="alert"></edit></h1>
-    <h1>Resto à la carte {{ page }}</h1>
+    <h1><edit></edit></h1>
+    <h1>Resto à la carte</h1>
     
 
     <div class="card centred" id="main_container">
 
 
       <div id="recherche">
-        <input v-on:input="searchRestaurantsFromServer" type="text" v-model="nomRecherche" placeholder="Rechercher">
-        <img  v-on:click="open_create_restaurant()" class="actionIcon" src="src/img/add.png">
+        <input v-on:input="searchRestaurantsFromServer" type="text" v-model="state.nomRecherche" placeholder="Rechercher">
+        <img v-on:click="open_create_restaurant()" class="actionIcon" src="src/img/add.png">
       </div>
 
       <div id="reglages">
         Nb restaurants par page :
-        <input style="margin-top:10px;" type="range" min=5 max=100 value=10 v-on:input="changePageSize" v-model="nbRestaurantsParPage">
-        {{nbRestaurantsParPage}}/{{nbRestaurants}}
+        <input style="margin-top:10px;" type="range" min=5 max=100 value=10 v-on:input="changePageSize" v-model="state.nbRestaurantsParPage">
+        {{state.nbRestaurantsParPage}}/{{state.nbRestaurants}}
       </div>
       <div class="tab_header">
         <div>
@@ -27,7 +27,7 @@
       </div>
       <div id="results">
         <table style="width:100%;">
-          <tr v-for="r,index in restaurants">
+          <tr v-for="r in state.restaurants">
             <td style="width:50%;" >{{r.name}} </td>
             <td style="width:50%;">
               <div style="width:130px;float:left;word-wrap: break-word;">{{r.cuisine}}</div>
@@ -41,19 +41,19 @@
 
 
       <div id="pagination">
-        <div v-if="page!=0" class="pagination_element button blue" v-on:click="premiere_page()">first</div>
-        <div v-if="page!=0" class="pagination_element " v-on:click="pagePrecedente()">
+        <div v-if="state.page!=0" class="pagination_element button blue" v-on:click="premiere_page()">first</div>
+        <div v-if="state.page!=0" class="pagination_element " v-on:click="pagePrecedente()">
           <div class=" icon_button button blue" style="float: right" >
             <img class=" actionIcon" src="src/img/prev.png">
           </div>
         </div>
-        <div class=" pagination_element" style="padding-top:5px">{{page + 1}} / {{ pageMax()+1}}</div>
-        <div v-if="page!= pageMax()" class=" pagination_element " v-on:click="pageSuivante()">
+        <div class= "pagination_element" style="padding-top:5px">{{state.page + 1}} / {{ pageMax()+1}}</div>
+        <div v-if="state.page!= pageMax()" class=" pagination_element " v-on:click="pageSuivante()">
           <div class=" icon_button button blue" >
             <img class="actionIcon " src="src/img/next.png">
           </div>
         </div>
-        <div v-if="page!= pageMax()" class=" pagination_element button blue" v-on:click=" derniere_page()">last</div>
+        <div v-if="state.page != pageMax()" class="pagination_element button blue" v-on:click=" derniere_page()">last</div>
       </div>
     </div>
   </div>
@@ -67,24 +67,8 @@ import Resto from './class/Restaurants.js'
 export default {
   data() {
     return {
-      alert: false,
-      creation_en_cours: Resto.creation_en_cours,
-      edition_en_cours: Resto.edition_en_cours,
-      en_edition: {
-        name: Resto.en_edition.name,
-        cuisine: Resto.en_edition.cuisine,
-        _id: Resto.en_edition._id
-      },
-      nom: Resto.nom,
-      cuisine: Resto.cuisine,
-      nbRestaurants: Resto.nbRestaurants,
-      page: Resto.page,
-      nbRestaurantsParPage: Resto.nbRestaurantsParPage,
-      nomRecherche: Resto.nomRecherche
+      state: Resto.state
     }
-  },
-  computed:{
-    restaurants: function() {return Resto.restaurants}
   },
   mounted(){
     console.log("AVANT AFFICHAGE");
@@ -93,24 +77,6 @@ export default {
   methods: {
     getRestaurantsFromServer() {
       Resto.getRestaurantsFromServer()
-    },
-    getdata(){
-      return {
-        alert: false,
-        creation_en_cours: Resto.creation_en_cours,
-        edition_en_cours: Resto.edition_en_cours,
-        en_edition: {
-          name: Resto.en_edition.name,
-          cuisine: Resto.en_edition.cuisine,
-          _id: Resto.en_edition._id
-        },
-        nom: Resto.nom,
-        cuisine: Resto.cuisine,
-        nbRestaurants: Resto.nbRestaurants,
-        page: Resto.page,
-        nbRestaurantsParPage: Resto.nbRestaurantsParPage,
-        nomRecherche: Resto.nomRecherche
-        }
     },
 
     // _.debounce vient de lodash et permet de n'appeler getRestaurantsFromServer que lorsqu'on a arrêté de taper
@@ -134,15 +100,6 @@ export default {
 
     open_edit_restaurant(r){
       Resto.open_edit_restaurant(r)
-    },
-
-
-    edit_restaurant(event){
-      Resto.edit_restaurant(event)
-    },
-
-    ajouterRestaurant(event) {
-      Resto.ajouterRestaurant(event)
     },
 
     getColor(index) {
@@ -171,6 +128,16 @@ export default {
 
     changePageSize() {
       Resto.changePageSize()
+    },
+    edit_restaurant(event){
+      console.log("Coucou, je suis l'event "+event)
+      Resto.edit_restaurant(event)
+    },
+    ajouterRestaurant(event){
+      Resto.ajouterRestaurant(event)
+    },
+    abort_edition(){
+      Resto.abort_edition()
     }
   }
 }

@@ -3,36 +3,29 @@ class Restaurants{
     constructor(){
         this.state = {
             edit: false,
-            create: false
-        },
-        this.restaurants=[{
-            nom: 'café de Paris',
-            cuisine: 'Française',
-          },
-            {
-              nom: 'Sun City Café',
-              cuisine: 'Américaine',
-            }
-          ],
-        this.reation_en_cours= false,
-        this.edition_en_cours= false,
-        this.en_edition= {
-            name: '',
+            create: false,
+            restaurants: [],
+            nom: '',
             cuisine: '',
-            _id: ""
-        },
-        this.nom= '',
-        this.cuisine= '',
-        this.nbRestaurants= 0,
-        this.page= 0,
-        this.nbRestaurantsParPage= 5,
-        this.nomRecherche= ""
+            nbRestaurants: 0,
+            page: 0,
+            nbRestaurantsParPage: 5,
+            nomRecherche: "",
+            creation_en_cours: false,
+            edition_en_cours: false,
+            alert: false,
+            en_edition: {
+                name: '',
+                cuisine: '',
+                _id: ""
+            }
+        }
     }
 
     getRestaurantsFromServer() {
         let url = "http://localhost:8080/api/restaurants?page=" +
-            this.page + "&name=" + this.nomRecherche +
-            "&pagesize=" + this.nbRestaurantsParPage;
+            this.state.page + "&name=" + this.state.nomRecherche +
+            "&pagesize=" + this.state.nbRestaurantsParPage;
 
         console.log("Je vais chercher les restaurants sur : "+ url)
 
@@ -43,8 +36,8 @@ class Restaurants{
           })
           .then((reponseJS) => {
             // ici on a une réponse en JS
-            this.restaurants = reponseJS.data;
-            this.nbRestaurants = reponseJS.count;
+            this.state.restaurants = reponseJS.data;
+            this.state.nbRestaurants = reponseJS.count;
 
           })
           .catch((err) => {
@@ -73,30 +66,30 @@ class Restaurants{
     
 
     abort_edition(){
-      this.alert=false;
-      this.creation_en_cours=false;
-      this.edition_en_cours=false;
-      this.en_edition.nom ='';
-      this.en_edition.cuisine = '';
-      this.en_edition.id = '';
-      this.nom = "";
-      this.cuisine = "";
+      this.state.alert=false;
+      this.state.creation_en_cours=false;
+      this.state.edition_en_cours=false;
+      this.state.en_edition.nom ='';
+      this.state.en_edition.cuisine = '';
+      this.state.en_edition.id = '';
+      this.state.nom = "";
+      this.state.cuisine = "";
     }
 
     open_create_restaurant(){
-        this.alert=true;
-        this.creation_en_cours=true;
+        this.state.alert=true;
+        this.state.creation_en_cours=true;
     }
 
     open_edit_restaurant(r){
         console.log(r);
-        this.en_edition.name = r.name;
-        this.en_edition.cuisine = r.cuisine;
-        this.en_edition._id = r._id;
+        this.state.en_edition.name = r.name;
+        this.state.en_edition.cuisine = r.cuisine;
+        this.state.en_edition._id = r._id;
   
-        console.log(this.en_edition);
-        this.alert=true;
-        this.edition_en_cours=true;
+        console.log(this.state.en_edition);
+        this.state.alert=true;
+        this.state.edition_en_cours=true;
     }
 
     edit_restaurant(event){
@@ -112,7 +105,8 @@ class Restaurants{
         // en prévision d'un envoi multipart en ajax/fetch
         let donneesFormulaire = new FormData(form);
   
-        let url = "http://localhost:8080/api/restaurants/"+this.en_edition._id;
+        let url = "http://localhost:8080/api/restaurants/"+this.state.en_edition._id;
+        console.log(url)
         console.log("edition",donneesFormulaire);
         fetch(url, {
           method: "PUT",
@@ -126,12 +120,12 @@ class Restaurants{
                 console.log("Restaurant inséré");
   
                 // remettre le formulaire à zéro
-                this.en_edition.nom ='';
-                this.en_edition.cuisine = '';
-                this.en_edition.id = '';
+                this.state.en_edition.nom ='';
+                this.state.en_edition.cuisine = '';
+                this.state.en_edition.id = '';
                 this.getRestaurantsFromServer();console.log(this.alert);
-                this.alert=false;
-                this.edition_en_cours_en_cours=false;
+                this.state.alert=false;
+                this.state.edition_en_cours_en_cours=false;
               });
             })
             .catch(function (err) {
@@ -168,11 +162,11 @@ class Restaurants{
                 console.log("Restaurant inséré");
   
                 // remettre le formulaire à zéro
-                this.nom = "";
-                this.cuisine = "";
-                this.alert=false;
+                this.state.nom = "";
+                this.state.cuisine = "";
+                this.state.alert=false;
                 this.getRestaurantsFromServer();console.log(this.alert);
-                this.creation_en_cours=false;
+                this.state.creation_en_cours=false;
               });
           })
           .catch(function (err) {
@@ -186,42 +180,42 @@ class Restaurants{
     }
 
     pagePrecedente() {
-      if (this.page > 0) {
-        this.page--;
+      if (this.state.page > 0) {
+        this.state.page--;
         this.getRestaurantsFromServer();
       }
     }
 
     pageSuivante() {
-        this.page++;
+        this.state.page++;
         this.getRestaurantsFromServer();
-        console.log(this.page)
+        console.log(this.state.page)
     }
 
     pageMax(){
         let pagemax = 0
-        if (this.nbRestaurants%this.nbRestaurantsParPage != 0){
-          pagemax = (this.nbRestaurants - this.nbRestaurants%this.nbRestaurantsParPage )/ this.nbRestaurantsParPage  ;
+        if (this.state.nbRestaurants%this.state.nbRestaurantsParPage != 0){
+          pagemax = (this.state.nbRestaurants - this.state.nbRestaurants%this.state.nbRestaurantsParPage )/ this.state.nbRestaurantsParPage  ;
         }
         else {
-          pagemax = (this.nbRestaurants)/ this.nbRestaurantsParPage  -1;
+          pagemax = (this.state.nbRestaurants)/ this.state.nbRestaurantsParPage  -1;
         }
         return pagemax
     }
 
     derniere_page() {
-        this.page = this.pageMax();
+        this.state.page = this.pageMax();
         console.log((this.nbRestaurants+1)%10);
         this.getRestaurantsFromServer();
     }
 
     premiere_page() {
-        this.page=0;
+        this.state.page=0;
         this.getRestaurantsFromServer();
     }
 
     changePageSize() {
-        this.page=0;
+        this.state.page=0;
         this.getRestaurantsFromServer();
     }
 }
