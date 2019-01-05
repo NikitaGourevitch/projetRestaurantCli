@@ -1,6 +1,4 @@
 <template>
-
-<div v-if="state.alert==true" id="edition_layer">
       <div v-if="state.edition_en_cours==true" class="card centred pop_up">
         <form v-on:submit="edit_restaurant($event)">
           <h3>Modifier informations</h3>
@@ -11,7 +9,7 @@
         </form>
       </div>
 
-      <div  v-if="state.creation_en_cours==true"  class="card centred pop_up">
+      <div  v-else-if="state.creation_en_cours==true"  class="card centred pop_up">
         <h3>Nouveau Restaurant</h3>
         <form v-on:submit="ajouterRestaurant($event)">
           Nom:
@@ -21,11 +19,7 @@
           <div class="button blue" v-on:click="abort_edition()" style="float:left;">Annuler </div>
           <button class="button green" style="float:right;" >Rajouter</button>
         </form>
-
       </div>
-</div>
-
-  
 </template>
 
 <script>

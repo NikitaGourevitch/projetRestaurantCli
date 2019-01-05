@@ -2,10 +2,11 @@
   <div id="app">
 
     <h1>Resto à la carte</h1>
-
+    <div v-if="state.alert==true" id="edition_layer">
     <edit></edit>
     <app-commande></app-commande>
-    <app-menu-restaurant></app-menu-restaurant>
+    <app-restau-detail></app-restau-detail>
+    </div>
     <div class="card centred" id="main_container">
 
 
@@ -41,7 +42,7 @@ max-height:100%" src="src/img/photoRestp.jpg"/>
 
 
           <div class="actions">
-            <div v-on:click="oppen_see_menu(r)"  class="book"> Reserver</div>
+            <div v-on:click="oppen_see_menu(r)"  class="book">Infos</div>
             <div  style=" float:right; width:100px; height:100%;">
               <img  v-on:click="open_edit_restaurant(r)" class="actionIcon" src="src/img/pen.png">
               <img  v-on:click="supprimerRestaurant(r._id)" class="actionIcon" src="src/img/bin.png">

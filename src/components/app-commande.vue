@@ -1,5 +1,5 @@
 <template>
-  <div v-if="state.alert==true" id="edition_layer">
+
     <div v-if="state.booking_en_cours==true" class="card centred infoMenu">
       <form v-on:submit="book_restaurant($event)">
         <h3>COMMANDE</h3>
@@ -9,7 +9,7 @@
         <button class="button green" style="float:right;" >Commander </button>
       </form>
     </div>
-  </div>
+
 </template>
 
   <script>

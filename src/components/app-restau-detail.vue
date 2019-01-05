@@ -1,5 +1,4 @@
 <template>
-  <div v-if="state.alert==true" id="edition_layer">
     <div v-if="state.menu_en_cours==true" class="card centred infoMenu">
       <div class="map">
         <l-map ref="map" :zoom=13 :center="[state.en_edition.coord.lat, state.en_edition.coord.long]">
@@ -30,8 +29,6 @@
       <div class="voirMenu centred" >Voir Menu</div>
       <div v-on:click="abort_edition()" style="margin-top:5px; cursor: pointer;">Fermer</div>
     </div>
-
-  </div>
 </template>
 
 <script>
