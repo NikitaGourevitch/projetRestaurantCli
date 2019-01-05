@@ -1,5 +1,5 @@
 <template>
-    <div v-if="state.menu_en_cours==true" class="card centred infoMenu">
+    <div v-if="state.infos_en_cours==true" class="card centred infoMenu">
       <div class="map">
         <l-map ref="map" :zoom=13 :center="[state.en_edition.coord.lat, state.en_edition.coord.long]">
         </l-map>

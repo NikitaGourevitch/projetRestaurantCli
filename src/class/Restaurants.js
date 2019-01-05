@@ -13,6 +13,7 @@ class Restaurants{
             nomRecherche: "",
             creation_en_cours: false,
             edition_en_cours: false,
+            infos_en_cours:false,
             menu_en_cours:false,
             alert: false,
             en_edition: {
@@ -95,6 +96,7 @@ class Restaurants{
       this.state.alert=false;
       this.state.creation_en_cours=false;
       this.state.edition_en_cours=false;
+      this.state.infos_en_cours=false;
       this.state.en_edition.nom ='';
       this.state.en_edition.cuisine = '';
       this.state.en_edition.id = '';
@@ -106,9 +108,9 @@ class Restaurants{
         this.state.alert=true;
         this.state.creation_en_cours=true;
     }
-    oppen_see_menu(r){
+  oppen_see_infos(r){
       this.state.alert=true;
-      this.state.menu_en_cours=true;
+      this.state.infos_en_cours=true;
       this.state.en_edition.name = r.name;
       this.state.en_edition.cuisine = r.cuisine;
       this.state.en_edition._id = r._id;
