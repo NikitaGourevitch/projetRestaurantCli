@@ -1,9 +1,11 @@
 <template>
   <div id="app">
-    <h1><edit></edit></h1>
-    <h1>Resto à la carte</h1>
-    
 
+    <h1>Resto à la carte</h1>
+
+    <edit></edit>
+    <app-commande></app-commande>
+    <app-menu-restaurant></app-menu-restaurant>
     <div class="card centred" id="main_container">
 
 
@@ -26,16 +28,29 @@
         </div>
       </div>
       <div id="results">
-        <table style="width:100%;">
-          <tr v-for="r in state.restaurants">
-            <td style="width:50%;" >{{r.name}} </td>
-            <td style="width:50%;">
-              <div style="width:130px;float:left;word-wrap: break-word;">{{r.cuisine}}</div>
+        <table style="width:100%;background-color: #cdcdcd">
+          <div class="row" v-for="r in state.restaurants">
+            <div style="width:100%; height: auto; display: inline-block; ">
+              <div style="width:20%;float:left;height:100%;">
+                <img style="max-width:100%;
+max-height:100%" src="src/img/photoRestp.jpg"/>
+              </div>
+              <div style="width:75%;float:left;" >{{r.name}} <br/>{{r.cuisine}} </div>
+            </div>
+
+
+
+          <div class="actions">
+            <div v-on:click="oppen_see_menu(r)"  class="book"> Reserver</div>
+            <div  style=" float:right; width:100px; height:100%;">
               <img  v-on:click="open_edit_restaurant(r)" class="actionIcon" src="src/img/pen.png">
               <img  v-on:click="supprimerRestaurant(r._id)" class="actionIcon" src="src/img/bin.png">
+            </div>
 
-            </td>
-          </tr>
+          </div>
+
+          </div>
+
         </table>
       </div>
 
@@ -92,6 +107,11 @@ export default {
 
     abort_edition(){
       Resto.abort_edition()
+    },
+
+
+    oppen_see_menu(r){
+      Resto.oppen_see_menu(r);
     },
 
     open_create_restaurant(){

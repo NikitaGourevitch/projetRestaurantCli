@@ -13,11 +13,19 @@ class Restaurants{
             nomRecherche: "",
             creation_en_cours: false,
             edition_en_cours: false,
+            menu_en_cours:false,
             alert: false,
             en_edition: {
                 name: '',
                 cuisine: '',
-                _id: ""
+                _id: "",
+              coord: {
+                lat: 0,
+                long: 0
+              },
+              street:"",
+              grade:"",
+              score:""
             }
         }
     }
@@ -63,6 +71,24 @@ class Restaurants{
             console.log(err);
           });
     }
+
+  getMenuRestaurant(id) {
+    let url = "http://localhost:8080/api/restaurants/"+id;
+
+    fetch(url, {
+      method: "GET",
+    })
+      .then((responseJSON) => {
+        responseJSON.json()
+          .then((res) => { // arrow function préserve le this
+            // Maintenant res est un vrai objet JavaScript
+            console.log(res);
+          });
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+  }
     
 
     abort_edition(){
@@ -79,6 +105,20 @@ class Restaurants{
     open_create_restaurant(){
         this.state.alert=true;
         this.state.creation_en_cours=true;
+    }
+    oppen_see_menu(r){
+      this.state.alert=true;
+      this.state.menu_en_cours=true;
+      this.state.en_edition.name = r.name;
+      this.state.en_edition.cuisine = r.cuisine;
+      this.state.en_edition._id = r._id;
+      this.state.en_edition.coord.lat = r.address.coord[0];
+      this.state.en_edition.coord.long = r.address.coord[1];
+      this.state.en_edition.street = r.address.street;
+      this.state.en_edition.grade = r.grades[0].grade;
+      this.state.en_edition.score = r.grades[0].score;
+
+      this.getMenuRestaurant(r._id);
     }
 
     open_edit_restaurant(r){

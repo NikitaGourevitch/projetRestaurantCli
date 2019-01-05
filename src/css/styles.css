@@ -174,7 +174,7 @@ input[type="text"]{
 }
 
 #main_container{
-  width:500px;
+  width:700px;
   margin-top:70px;
 }
 
@@ -239,6 +239,32 @@ input[type="text"]{
 }
 
 .pagination_element div {
-
   margin-top: 0;
+}
+
+.actions{
+  height:50px;
+  width: 100%;
+  border-top:1px solid #cdcdcd;
+}
+.row{
+  height:auto;
+  width: 100%;
+  padding-top:10px;
+  border-radius: 4px;
+  border:1px solid #cdcdcd;
+  margin-bottom :3px;
+  background-color: #fff;
+}
+
+
+.book{
+  height: 50px;
+  width:170px;
+  color:#4ab35f;
+  text-align: center;
+  float:left;
+  text-decoration: underline ;
+  cursor: pointer;
+  padding-top: 10px;
 }
