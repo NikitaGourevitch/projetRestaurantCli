@@ -113,7 +113,7 @@ input[type="text"]{
 .pop_up{
   font-size: 12px;
   width:300px;
-  margin-bottom: 100px;
+  margin-top: 100px;
   z-index:11;
   padding:20px;
   height: 235px;

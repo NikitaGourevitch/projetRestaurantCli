@@ -8,16 +8,16 @@
         <img src="src/img/photoRestp.jpg"/>
          <div class="scoreBoard">
           Grade:
-           <img v-if="this.note<1"  src="src/img/starEmpty.png"/>
-           <img v-if="this.note<2" src="src/img/starEmpty.png"/>
-           <img v-if="this.note<3" src="src/img/starEmpty.png"/>
-           <img v-if="this.note<4" src="src/img/starEmpty.png"/>
-           <img v-if="this.note<5" src="src/img/starEmpty.png"/>
-          <img v-if="this.note>=1"  src="src/img/star.png"/>
-          <img v-if="this.note>=2" src="src/img/star.png"/>
-          <img v-if="this.note>=3" src="src/img/star.png"/>
-          <img v-if="this.note>=4" src="src/img/star.png"/>
-          <img v-if="this.note>=5" src="src/img/star.png"/>
+           <img v-if="this.state.en_edition.note<1"  src="src/img/starEmpty.png"/>
+           <img v-if="this.state.en_edition.note<2" src="src/img/starEmpty.png"/>
+           <img v-if="this.state.en_edition.note<3" src="src/img/starEmpty.png"/>
+           <img v-if="this.state.en_edition.note<4" src="src/img/starEmpty.png"/>
+           <img v-if="this.state.en_edition.note<5" src="src/img/starEmpty.png"/>
+          <img v-if="this.state.en_edition.note>=1"  src="src/img/star.png"/>
+          <img v-if="this.state.en_edition.note>=2" src="src/img/star.png"/>
+          <img v-if="this.state.en_edition.note>=3" src="src/img/star.png"/>
+          <img v-if="this.state.en_edition.note>=4" src="src/img/star.png"/>
+          <img v-if="this.state.en_edition.note>=5" src="src/img/star.png"/>
         </div>
       </div>
       <div class="infos">
@@ -51,38 +51,15 @@
         note:1
       }
     },
-    mounted(){
+    updated(){
       this.calculeNote();
     },
     methods:{
       get_menu_restaurant(event){
         this.menu = Resto.get_menu_restaurant(event);
       },
-      ajouterRestaurant(event){
-        Resto.ajouterRestaurant(event)
-      },
       abort_edition(){
         Resto.abort_edition()
-      },
-      calculeNote(){
-        switch(this.state.en_edition.grade){
-          case "A":
-            this.note=5;
-            break;
-          case "B":
-            this.note=4;
-            break;
-          case "C":
-            this.note=3;
-            break;
-          case "D":
-            this.note=2;
-            break;
-          case "E":
-            this.note=1;
-            break;
-
-        }
       },
       abort_edition(){
         Resto.abort_edition()
