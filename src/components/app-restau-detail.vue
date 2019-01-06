@@ -1,5 +1,6 @@
 <template>
-    <div v-if="state.infos_en_cours==true" class="card centred infoMenu">
+    <div v-if="state.infos_en_cours==true" class="card centred infoResto">
+      <img class="closeButton" v-on:click="abort_edition()" src="src/img/cross.png"/>
       <div class="map">
         <l-map ref="map" :zoom=13 :center="[state.en_edition.coord.lat, state.en_edition.coord.long]">
         </l-map>
@@ -26,8 +27,9 @@
         {{state.en_edition.street}}<br/>
         Score :{{state.en_edition.score}} /10
       </div>
-      <div class="voirMenu centred" >Voir Menu</div>
-      <div v-on:click="abort_edition()" style="margin-top:5px; cursor: pointer;">Fermer</div>
+      <div v-if="menuActif==false" v-on:click="ouvrirMenu()" class="voirMenu centred" >Voir Menu</div>
+      <!--<div v-on:click="abort_edition()" style="margin-top:5px; cursor: pointer;">Fermer</div>-->
+      <app-menu-restaurant v-if="menuActif==true" ></app-menu-restaurant>
     </div>
 </template>
 
@@ -45,6 +47,7 @@
 
     data() {
       return{
+        menuActif:false,
         state: Resto.state,
         menu:"",
         map: null,
@@ -52,11 +55,12 @@
       }
     },
     updated(){
-      this.calculeNote();
+
     },
     methods:{
-      get_menu_restaurant(event){
-        this.menu = Resto.get_menu_restaurant(event);
+      ouvrirMenu(){
+        this.menuActif=true;
+        console.log(this.menuActif);
       },
       abort_edition(){
         Resto.abort_edition()
@@ -70,7 +74,7 @@
 </script>
 
 <style scoped>
-  .infoMenu{
+  .infoResto{
     height: auto;
     width:800px;
 
@@ -79,7 +83,7 @@
   .map{
     height:200px;
     width:100%;
-    margin-bottom:20px;
+    margin-bottom:40px;
   }
   .infos{
     float:left;
@@ -140,4 +144,5 @@
   .voirMenu:hover{
     background-color: aliceblue;
   }
+
 </style>

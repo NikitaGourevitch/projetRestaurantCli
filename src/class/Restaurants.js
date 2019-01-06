@@ -14,7 +14,6 @@ class Restaurants {
       creation_en_cours: false,
       edition_en_cours: false,
       infos_en_cours: false,
-      menu_en_cours: false,
       alert: false,
       en_edition: {
         name: '',
