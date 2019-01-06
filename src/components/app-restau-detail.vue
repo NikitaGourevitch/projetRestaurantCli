@@ -1,20 +1,23 @@
 <template>
-    <div v-if="state.menu_en_cours==true" class="card centred infoMenu">
+
+    <div v-if="state.infos_en_cours==true" class="card centred infoResto">
+      <img class="closeButton" v-on:click="abort_edition()" src="src/img/cross.png"/>
       <div id="map" class="map"></div>
+
       <div class="photoResto">
         <img src="src/img/photoRestp.jpg"/>
          <div class="scoreBoard">
           Grade:
-           <img v-if="this.note<1"  src="src/img/starEmpty.png"/>
-           <img v-if="this.note<2" src="src/img/starEmpty.png"/>
-           <img v-if="this.note<3" src="src/img/starEmpty.png"/>
-           <img v-if="this.note<4" src="src/img/starEmpty.png"/>
-           <img v-if="this.note<5" src="src/img/starEmpty.png"/>
-          <img v-if="this.note>=1"  src="src/img/star.png"/>
-          <img v-if="this.note>=2" src="src/img/star.png"/>
-          <img v-if="this.note>=3" src="src/img/star.png"/>
-          <img v-if="this.note>=4" src="src/img/star.png"/>
-          <img v-if="this.note>=5" src="src/img/star.png"/>
+           <img v-if="this.state.en_edition.note<1"  src="src/img/starEmpty.png"/>
+           <img v-if="this.state.en_edition.note<2" src="src/img/starEmpty.png"/>
+           <img v-if="this.state.en_edition.note<3" src="src/img/starEmpty.png"/>
+           <img v-if="this.state.en_edition.note<4" src="src/img/starEmpty.png"/>
+           <img v-if="this.state.en_edition.note<5" src="src/img/starEmpty.png"/>
+          <img v-if="this.state.en_edition.note>=1"  src="src/img/star.png"/>
+          <img v-if="this.state.en_edition.note>=2" src="src/img/star.png"/>
+          <img v-if="this.state.en_edition.note>=3" src="src/img/star.png"/>
+          <img v-if="this.state.en_edition.note>=4" src="src/img/star.png"/>
+          <img v-if="this.state.en_edition.note>=5" src="src/img/star.png"/>
         </div>
       </div>
       <div class="infos">
@@ -23,8 +26,9 @@
         {{state.en_edition.street}}<br/>
         Score :{{state.en_edition.score}} /10
       </div>
-      <div class="voirMenu centred" >Voir Menu</div>
-      <div v-on:click="abort_edition()" style="margin-top:5px; cursor: pointer;">Fermer</div>
+      <div v-if="menuActif==false" v-on:click="ouvrirMenu()" class="voirMenu centred" >Voir Menu</div>
+      <!--<div v-on:click="abort_edition()" style="margin-top:5px; cursor: pointer;">Fermer</div>-->
+      <app-menu-restaurant v-if="menuActif==true" ></app-menu-restaurant>
     </div>
 </template>
 
@@ -42,6 +46,7 @@
 
     data() {
       return{
+        menuActif:false,
         state: Resto.state,
         menu:"",
         map: null,
@@ -49,9 +54,7 @@
       }
     },
     mounted(){
-      this.calculeNote();
       this.setMap();
-      console.log("mounted")
     },
     methods:{
       setMap(){
@@ -65,34 +68,13 @@
         icon.options.shadowSize = [0,0];
         var marker = new L.Marker(map.getCenter(), {icon : icon}).addTo(map);
       },
-      get_menu_restaurant(event){
-        this.menu = Resto.get_menu_restaurant(event);
-      },
-      ajouterRestaurant(event){
-        Resto.ajouterRestaurant(event)
+
+      ouvrirMenu(){
+        this.menuActif=true;
+        console.log(this.menuActif);
       },
       abort_edition(){
         Resto.abort_edition()
-      },
-      calculeNote(){
-        switch(this.state.en_edition.grade){
-          case "A":
-            this.note=5;
-            break;
-          case "B":
-            this.note=4;
-            break;
-          case "C":
-            this.note=3;
-            break;
-          case "D":
-            this.note=2;
-            break;
-          case "E":
-            this.note=1;
-            break;
-
-        }
       },
       abort_edition(){
         Resto.abort_edition()
@@ -103,7 +85,7 @@
 </script>
 
 <style scoped>
-  .infoMenu{
+  .infoResto{
     height: auto;
     width:800px;
 
@@ -112,7 +94,7 @@
   .map{
     height:200px;
     width:100%;
-    margin-bottom:20px;
+    margin-bottom:40px;
   }
   .infos{
     float:left;
@@ -173,4 +155,5 @@
   .voirMenu:hover{
     background-color: aliceblue;
   }
+
 </style>

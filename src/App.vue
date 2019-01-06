@@ -42,7 +42,7 @@ max-height:100%" src="src/img/photoRestp.jpg"/>
 
 
           <div class="actions">
-            <div v-on:click="oppen_see_menu(r)"  class="book">Infos</div>
+            <div v-on:click="oppen_see_infos(r)"  class="book">Infos</div>
             <div  style=" float:right; width:100px; height:100%;">
               <img  v-on:click="open_edit_restaurant(r)" class="actionIcon" src="src/img/pen.png">
               <img  v-on:click="supprimerRestaurant(r._id)" class="actionIcon" src="src/img/bin.png">
@@ -112,9 +112,8 @@ export default {
     },
 
 
-    oppen_see_menu(r){
-      console.log(this.state.restaurants)
-      Resto.oppen_see_menu(r);
+    oppen_see_infos(r){
+      Resto.oppen_see_infos(r);
     },
 
     open_create_restaurant(){
