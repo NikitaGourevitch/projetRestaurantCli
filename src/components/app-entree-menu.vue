@@ -5,7 +5,7 @@
       <div class="title">Entrés</div>
     </div>
     <div class="scrollContainer">
-      TOTOAL{{state.totalPrice}}€
+      TOTAL{{state.totalPrice}}€
       <div v-for="e in Resto.platsCommandes" class="listElemnt">
         <div class="elementTexts">
           <div class="nomElement">{{e.nom}} <img v-on:click="addToCart(e)"class="add" src="src/img/add.png"/></div>
