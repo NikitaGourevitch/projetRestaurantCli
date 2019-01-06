@@ -4,16 +4,19 @@ class Restaurants {
     this.state = {
       edit: false,
       create: false,
-      restaurants: [],
+      restaurants:[],
       nom: '',
       cuisine: '',
       nbRestaurants: 0,
       page: 0,
+      lastUsedId:0,
       nbRestaurantsParPage: 5,
       nomRecherche: "",
+      platsCommandes: new Map(),
       creation_en_cours: false,
       edition_en_cours: false,
       infos_en_cours: false,
+      totalPrice:0,
       alert: false,
       en_edition: {
         name: '',
@@ -28,6 +31,20 @@ class Restaurants {
         score: ""
       }
     }
+  }
+
+  addPlatsCommandes(p){
+    if(this.state.platsCommandes.get(p._id)){
+      this.state.platsCommandes.get(p._id).qte++;
+    }else{
+      this.state.platsCommandes.set(p._id,p);
+    }
+    this.state.totalPrice+=p.prix;
+    console.log(this.state.platsCommandes);
+  }
+
+  remPlatsCommandes(id){//TODO
+    this.state.platsCommandes.delete(id);
   }
 
   getRestaurantsFromServer() {

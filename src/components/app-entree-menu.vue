@@ -1,51 +1,45 @@
 <template>
-    <div id="booking">
-      <div id="buttonBooking"></div>
-      <div v-if="seeBooking==true" class="card centred infoMenu">
-        <div class="list" >
-          <div class="header">
-            <img src="src/img/entre.jpg"/>
-            <div class="title">Entrés</div>
-          </div>
-          <div class="scrollContainer">
-            {{this.platsComande}}
-            <div v-for="e in this.platsComande" class="listElemnt">
-              <div class="elementTexts">
-                <div class="nomElement">{{e.nom}} <img v-on:click="addToCart(e)"class="add" src="src/img/add.png"/></div>
-                <div class="descElement"> {{e.desc}}</div>
-              </div>
-              <div class="priceElement">{{e.prix}}€ </div>
-            </div>
-          </div>
+  <div class="list" >
+    <div class="header">
+      <img src="src/img/entre.jpg"/>
+      <div class="title">Entrés</div>
+    </div>
+    <div class="scrollContainer">
+      TOTOAL{{state.totalPrice}}€
+      <div v-for="e in Resto.platsCommandes" class="listElemnt">
+        <div class="elementTexts">
+          <div class="nomElement">{{e.nom}} <img v-on:click="addToCart(e)"class="add" src="src/img/add.png"/></div>
+          <div class="descElement"> {{e.desc}}</div>
         </div>
+        <div class="priceElement">{{e.prix}}€ </div>
       </div>
     </div>
+  </div>
 </template>
 
-  <script>
+<script>
 
   import Resto from '../class/Restaurants.js'
   export default {
     data() {
       return{
-        state: Resto.state,
-        platsComande:Array.from( Resto.state.platsCommandes.values()),
-        seeBooking:true,
-        total:
+        state: Resto.state
       }
     },
     mounted(){
-      setInterval(function () {
-        this.platsComande = Resto.state.platsCommandes.values() ;
 
-        console.log( this.platsComande);
-      }, 500);
+
+
 
     },
     methods:{
-      /*refresh(){
-
-      }*/
+      edit_restaurant(event){
+        console.log("Coucou, je suis l'event "+event)
+        Resto.edit_restaurant(event)
+      },
+      ajouterRestaurant(event){
+        Resto.ajouterRestaurant(event)
+      },
       abort_edition(){
         Resto.abort_edition()
       }
@@ -55,15 +49,6 @@
 </script>
 
 <style scoped>
-
-
-  #booking{
-    position:fixed;
-    right:0px;
-    background-color: #fff;
-    height: 200px;
-    width:300px;
-  }
 
   .list{
     height: auto;
@@ -134,10 +119,5 @@
     line-height: 60px;
     text-transform:uppercase;
     border-left:1px solid #cdcdcd;
-  }
-  .add{
-    height:15px;
-    float:right;
-    cursor:pointer;
   }
 </style>

@@ -4,6 +4,7 @@ import Edit from './components/Edit.vue'
 import appCommande from './components/app-commande.vue'
 import appRestauDetail from './components/app-restau-detail.vue'
 import appMenuRestaurant from './components/app-menu-restaurant.vue'
+
 import { inherits } from 'util';
 
 

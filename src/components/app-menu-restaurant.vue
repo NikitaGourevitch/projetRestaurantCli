@@ -73,17 +73,12 @@
 
     },
     methods:{
-      edit_restaurant(event){
-        console.log("Coucou, je suis l'event "+event)
-        Resto.edit_restaurant(event)
-      },
-      ajouterRestaurant(event){
-        Resto.ajouterRestaurant(event)
-      },
       abort_edition(){
         Resto.abort_edition()
       },
-
+      addToCart(p){
+        Resto.addPlatsCommandes(p)
+      },
       crerPlats(PrixMax){
 
         let plats;
@@ -91,11 +86,17 @@
         for(let i=0;i<10;i++){
           var ipsum = new LoremIpsum();
           console.log(ipsum.sentence(2));
+
             plats.push({
               nom: ipsum.sentence(2),
-              desc: ipsum.sentence(10,15),
-              prix: this._count(1,PrixMax)});
+              desc: ipsum.sentence(10, 15),
+              prix: this._count(1, PrixMax),
+              qte: 1,
+              _id: Resto.state.lastUsedId
+        });
+          Resto.state.lastUsedId++;
         }
+
         console.log(plats);
         return plats;
 

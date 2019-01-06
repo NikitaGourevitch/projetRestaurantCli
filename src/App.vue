@@ -2,9 +2,9 @@
   <div id="app">
 
     <h1>Resto à la carte</h1>
+    <app-commande></app-commande>
     <div v-if="state.alert==true" id="edition_layer">
     <edit></edit>
-    <app-commande></app-commande>
     <app-restau-detail></app-restau-detail>
     </div>
     <div class="card centred" id="main_container">
@@ -19,14 +19,6 @@
         Nb restaurants par page :
         <input style="margin-top:10px;" type="range" min=5 max=100 value=10 v-on:input="changePageSize" v-model="state.nbRestaurantsParPage">
         {{state.nbRestaurantsParPage}}/{{state.nbRestaurants}}
-      </div>
-      <div class="tab_header">
-        <div>
-          NOM
-        </div>
-        <div>
-          CUISINE
-        </div>
       </div>
       <div id="results">
         <table style="width:100%;background-color: #cdcdcd">
