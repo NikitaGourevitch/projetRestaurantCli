@@ -28,7 +28,7 @@
                 <img style="max-width:100%;
 max-height:100%" src="src/img/photoRestp.jpg"/>
               </div>
-              <div style="width:75%;float:left;" >{{r.name}} <br/>{{r.cuisine}} </div>
+              <div style="width:75%;float:left;" >{{r.name}} <br/>{{r.cuisine}}</div>
             </div>
 
 
@@ -80,11 +80,12 @@ export default {
   },
   mounted(){
     console.log("AVANT AFFICHAGE");
-    this.getRestaurantsFromServer();
+    this.getRestaurantsFromServer(); 
   },
   methods: {
     getRestaurantsFromServer() {
       Resto.getRestaurantsFromServer()
+      console.log(this.state.restaurants)
     },
 
     // _.debounce vient de lodash et permet de n'appeler getRestaurantsFromServer que lorsqu'on a arrêté de taper

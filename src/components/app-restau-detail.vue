@@ -1,10 +1,9 @@
 <template>
+
     <div v-if="state.infos_en_cours==true" class="card centred infoResto">
       <img class="closeButton" v-on:click="abort_edition()" src="src/img/cross.png"/>
-      <div class="map">
-        <l-map ref="map" :zoom=13 :center="[state.en_edition.coord.lat, state.en_edition.coord.long]">
-        </l-map>
-      </div>
+      <div id="map" class="map"></div>
+
       <div class="photoResto">
         <img src="src/img/photoRestp.jpg"/>
          <div class="scoreBoard">
@@ -54,10 +53,22 @@
         note:1
       }
     },
-    updated(){
-
+    mounted(){
+      this.setMap();
     },
     methods:{
+      setMap(){
+        var map = L.map('map').setView([this.state.en_edition.coord.long, this.state.en_edition.coord.lat], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        var icon = new L.Icon.Default();
+        icon.options.shadowSize = [0,0];
+        var marker = new L.Marker(map.getCenter(), {icon : icon}).addTo(map);
+      },
+
       ouvrirMenu(){
         this.menuActif=true;
         console.log(this.menuActif);

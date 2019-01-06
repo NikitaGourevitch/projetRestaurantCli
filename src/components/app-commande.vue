@@ -31,7 +31,7 @@
         state: Resto.state,
         platsComande:Array.from( Resto.state.platsCommandes.values()),
         seeBooking:true,
-        total:
+        total:Resto.state.totalPrice
       }
     },
     mounted(){
