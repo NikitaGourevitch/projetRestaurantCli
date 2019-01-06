@@ -1,9 +1,6 @@
 <template>
     <div v-if="state.menu_en_cours==true" class="card centred infoMenu">
-      <div class="map">
-        <l-map ref="map" :zoom=13 :center="[state.en_edition.coord.lat, state.en_edition.coord.long]">
-        </l-map>
-      </div>
+      <div id="map" class="map"></div>
       <div class="photoResto">
         <img src="src/img/photoRestp.jpg"/>
          <div class="scoreBoard">
@@ -53,8 +50,21 @@
     },
     mounted(){
       this.calculeNote();
+      this.setMap();
+      console.log("mounted")
     },
     methods:{
+      setMap(){
+        var map = L.map('map').setView([this.state.en_edition.coord.long, this.state.en_edition.coord.lat], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        var icon = new L.Icon.Default();
+        icon.options.shadowSize = [0,0];
+        var marker = new L.Marker(map.getCenter(), {icon : icon}).addTo(map);
+      },
       get_menu_restaurant(event){
         this.menu = Resto.get_menu_restaurant(event);
       },
