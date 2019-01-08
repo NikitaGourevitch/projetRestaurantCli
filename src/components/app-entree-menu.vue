@@ -8,7 +8,7 @@
       TOTAL{{state.totalPrice}}€
       <div v-for="e in Resto.platsCommandes" class="listElemnt">
         <div class="elementTexts">
-          <div class="nomElement">{{e.nom}} <img v-on:click="addToCart(e)"class="add" src="src/img/add.png"/></div>
+          <div class="nomElement">{{e.nom}} <img v-on:click="addToCart(e)" class="add" src="src/img/add.png"/></div>
           <div class="descElement"> {{e.desc}}</div>
         </div>
         <div class="priceElement">{{e.prix}}€ </div>

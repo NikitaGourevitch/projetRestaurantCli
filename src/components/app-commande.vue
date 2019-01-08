@@ -5,18 +5,14 @@
         <div class="list" >
           <div class="header">
             <img src="src/img/entre.jpg"/>
-            <div class="title">Entrés</div>
+            <div class="title">Commande</div>
           </div>
           <div class="scrollContainer">
-            {{this.platsComande}}
-            <div v-for="e in this.platsComande" class="listElemnt">
-              <div class="elementTexts">
-                <div class="nomElement">{{e.nom}} <img v-on:click="addToCart(e)"class="add" src="src/img/add.png"/></div>
-                <div class="descElement"> {{e.desc}}</div>
-              </div>
-              <div class="priceElement">{{e.prix}}€ </div>
+            <div v-for="e in state.cle">
+             {{state.platsCommandes.get(e)}}
             </div>
           </div>
+          <div>TOTAL : {{state.totalPrice}}</div>
         </div>
       </div>
     </div>
@@ -29,23 +25,13 @@
     data() {
       return{
         state: Resto.state,
-        platsComande:Array.from( Resto.state.platsCommandes.values()),
         seeBooking:true,
         total:Resto.state.totalPrice
       }
     },
     mounted(){
-      setInterval(function () {
-        this.platsComande = Resto.state.platsCommandes.values() ;
-
-        console.log( this.platsComande);
-      }, 500);
-
     },
     methods:{
-      /*refresh(){
-
-      }*/
       abort_edition(){
         Resto.abort_edition()
       }

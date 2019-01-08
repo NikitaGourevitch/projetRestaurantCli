@@ -11,7 +11,7 @@
       <div class="scrollContainer">
         <div v-for="e in entres" class="listElemnt">
           <div class="elementTexts">
-            <div class="nomElement">{{e.nom}} <img v-on:click="addToCart(e)"class="add" src="src/img/add.png"/></div>
+            <div class="nomElement">{{e.nom}} <img v-on:click="addToCart(e)" class="add" src="src/img/add.png"/></div>
             <div class="descElement"> {{e.desc}}</div>
           </div>
           <div class="priceElement">{{e.prix}}€ </div>
@@ -26,7 +26,7 @@
       <div class="scrollContainer">
         <div v-for="e in plats" class="listElemnt">
           <div class="elementTexts">
-            <div class="nomElement">{{e.nom}} <img v-on:click="addToCart(e)"class="add" src="src/img/add.png"/></div>
+            <div class="nomElement">{{e.nom}} <img v-on:click="addToCart(e)" class="add" src="src/img/add.png"/></div>
             <div class="descElement"> {{e.desc}}</div>
           </div>
           <div class="priceElement">{{e.prix}}€ </div>
@@ -41,7 +41,7 @@
       <div class="scrollContainer">
         <div v-for="e in desserts" class="listElemnt">
           <div class="elementTexts">
-            <div class="nomElement">{{e.nom}} <img v-on:click="addToCart(e)"class="add" src="src/img/add.png"/></div>
+            <div class="nomElement">{{e.nom}} <img v-on:click="addToCart(e)" class="add" src="src/img/add.png"/></div>
             <div class="descElement"> {{e.desc}}</div>
           </div>
           <div class="priceElement">{{e.prix}}€ </div>
@@ -65,9 +65,8 @@
         state: Resto.state,
         entres: this.crerPlats(10),
         plats: this.crerPlats(30),
-        desserts: this.crerPlats(10),
+        desserts: this.crerPlats(10)
         }
-
     },
     mounted(){
 

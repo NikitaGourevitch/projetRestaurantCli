@@ -12,6 +12,8 @@ class Restaurants {
       lastUsedId:0,
       nbRestaurantsParPage: 5,
       nomRecherche: "",
+      i:0,
+      cle: new Array(),
       platsCommandes: new Map(),
       creation_en_cours: false,
       edition_en_cours: false,
@@ -33,14 +35,22 @@ class Restaurants {
     }
   }
 
+  getplatsCommandes(){
+    return this.state.platsCommandes
+  }
+
   addPlatsCommandes(p){
+    console.log(this.state.platsCommandes)
     if(this.state.platsCommandes.get(p._id)){
       this.state.platsCommandes.get(p._id).qte++;
     }else{
       this.state.platsCommandes.set(p._id,p);
     }
+    this.state.platsCommandes = new Map(this.state.platsCommandes)
     this.state.totalPrice+=p.prix;
-    console.log(this.state.platsCommandes);
+    this.state.i++
+    this.state.cle = Array.from(this.state.platsCommandes.keys())
+    console.log(this.state.i)
   }
 
   remPlatsCommandes(id){//TODO
