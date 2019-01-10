@@ -1,7 +1,11 @@
 /* The animation code */
 @keyframes appear {
-  from {height: 0px;}
-  to {height: 235px;}
+  from {
+    height: 0px;
+  }
+  to {
+    height: 235px;
+  }
 }
 
 *,
@@ -13,7 +17,7 @@
   box-sizing: border-box;
 }
 
-html::-webkit-scrollbar,body::-webkit-scrollbar{
+html::-webkit-scrollbar, body::-webkit-scrollbar {
   display: none;
 }
 
@@ -38,216 +42,225 @@ body {
   color: #2f2f2f;
   font-size: 16px;
   line-height: 1.7;
-  background:url('../img/bkg.jpg') no-repeat center center;
+  background: url('../img/bkg.jpg') no-repeat center center;
 
   /* Ensure the html element always takes up the full height of the browser window */
-  min-height:100%;
+  min-height: 100%;
 
   /* The Magic */
-  background-size:cover;
+  background-size: cover;
 }
-h1{
+
+h1 {
   font-family: 'Indie Flower', cursive;
-  color:#fff;
+  color: #fff;
   text-align: center;
   font-size: 50px;
 }
-button{
-  border:none;
+
+button {
+  border: none;
 }
 
-tr{
+tr {
   width: 100%;
 }
 
-td{
+td {
   border-bottom: solid 1px #cdcdcd;
 
 }
-input[type="text"]{
-  height:30px;
-  width:50%;
-  min-width:80px;
+
+input[type="text"] {
+  height: 30px;
+  width: 50%;
+  min-width: 80px;
   color: #434343;
   margin-top: 5px;
   background-color: #cdcdcd;
-  border:none;
-  padding:4px;
+  border: none;
+  padding: 4px;
   font-size: 16px;
-  padding-left:28px;
+  padding-left: 28px;
   border-radius: 30px;
 }
-.green{
+
+.green {
   background-color: #41d05e;
-  color:#fff;
+  color: #fff;
 }
 
-.green:hover{
+.green:hover {
   background-color: #3eb058;
-  color:#fff;
+  color: #fff;
 }
 
-.blue{
-  background-color:dodgerblue;
-  color:#fff;
+.blue {
+  background-color: dodgerblue;
+  color: #fff;
 }
 
-.blue:hover{
+.blue:hover {
   background-color: #336bff;
-  color:#fff;
+  color: #fff;
 }
 
 
-
-.centred{
+.centred {
   margin-left: auto;
   margin-right: auto;
   display: block;
   clear: both;
 }
 
-.card{
-  height:auto;
-  width:300px;
+.card {
+  height: auto;
+  width: 300px;
   min-height: 130px;
   background-color: #ffff;
   border-radius: 4px;
-  padding:20px;
+  padding: 20px;
 }
 
-.pop_up{
+.pop_up {
   font-size: 12px;
-  width:300px;
+  width: 300px;
   margin-top: 100px;
-  z-index:11;
-  padding:20px;
+  z-index: 11;
+  padding: 20px;
   height: 235px;
   overflow: hidden;
   animation: appear ease 1s;
 }
 
-.pop_up input{
-  width:100%;
-  margin-bottom:5px;
-  height:25px;
-  padding:5px;
+.pop_up input {
+  width: 100%;
+  margin-bottom: 5px;
+  height: 25px;
+  padding: 5px;
 }
 
-#edition_layer{
-  width: 100%; height: 100%;
-  left: 0em; top: 0em;
-  margin:0;
-  padding:0;
+#edition_layer {
+  width: 100%;
+  height: 100%;
+  left: 0em;
+  top: 0em;
+  margin: 0;
+  padding: 0;
   position: fixed;
-  background-color:rgba(0,0,0,0.25) ;
-  z-index:10;
+  background-color: rgba(0, 0, 0, 0.25);
+  z-index: 10;
   overflow-y: scroll;
 }
 
-.actionIcon{
-  height:20px;
-  cursor:pointer;
+.actionIcon {
+  height: 20px;
+  cursor: pointer;
   width: 20px;
-  float:left;
-  margin:10px;
+  float: left;
+  margin: 10px;
 }
-.closeButton{
+
+.closeButton {
   margin-top: -10px;
   margin-bottom: 10px;
-  height:20px;
+  height: 20px;
   width: 20px;
   float: right;
   cursor: pointer;
 }
-.button{
-  float:left;
-  text-align:center;
+
+.button {
+  float: left;
+  text-align: center;
   width: 80px;
-  height:30px;
-  padding:3px;
+  height: 30px;
+  padding: 3px;
   border-radius: 80px;
   cursor: pointer;
 
 }
 
-.icon_button{
+.icon_button {
   padding: 0;
-  float:left;
-  text-align:center;
-  height:35px;
+  float: left;
+  text-align: center;
+  height: 35px;
   width: 35px;
   margin-top: 10px;
   border-radius: 80px;
   cursor: pointer;
 }
-.icon_button img{
+
+.icon_button img {
   margin: 0px;
   margin-left: 8px;
   margin-top: 8px;
 }
 
-#main_container{
-  width:700px;
-  margin-top:70px;
+#main_container {
+  width: 700px;
+  margin-top: 70px;
   margin-bottom: 70px;
 }
 
-#recherche{
-  height:30px;
-  width:100%;
+#recherche {
+  height: 30px;
+  width: 100%;
 }
 
-#recherche input{
-  height:30px;
-  width:50%;
+#recherche input {
+  height: 30px;
+  width: 50%;
   color: #434343;
   margin-top: 5px;
   background-color: #cdcdcd;
-  border:none;
-  padding:4px;
+  border: none;
+  padding: 4px;
   font-size: 16px;
-  padding-left:28px;
+  padding-left: 28px;
   border-radius: 30px;
   background-image: url(../img/loup.png);
   background-position: 7px 7px;
   background-repeat: no-repeat;
 }
 
-#reglages{
-  height:70px;
-  width:100%;
+#reglages {
+  height: 70px;
+  width: 100%;
   padding-top: 10px;
 }
 
-#results{
+#results {
   max-height: 400px;
   overflow-y: scroll;
 }
 
-.tab_header{
-  position:relative;
+.tab_header {
+  position: relative;
   width: 100%;
-  height:30px;
+  height: 30px;
   background-color: #4ab35f;
   color: #fff;
 }
 
-.tab_header div{
-  width:50%;
+.tab_header div {
+  width: 50%;
   padding-top: 5px;
-  float:left;
-  height:30px;
+  float: left;
+  height: 30px;
   text-align: center;
 }
 
-#pagination{
+#pagination {
   margin-top: 10px;
-  width:100%;
-  height:35px;
+  width: 100%;
+  height: 35px;
 }
-.pagination_element{
-  width:92px;
-  height:100%;
+
+.pagination_element {
+  width: 92px;
+  height: 100%;
   float: left;
   text-align: center;
 }
@@ -256,29 +269,29 @@ input[type="text"]{
   margin-top: 0;
 }
 
-.actions{
-  height:50px;
+.actions {
+  height: 50px;
   width: 100%;
-  border-top:1px solid #cdcdcd;
+  border-top: 1px solid #cdcdcd;
 }
-.row{
-  height:auto;
+
+.row {
+  height: auto;
   width: 100%;
-  padding-top:10px;
+  padding-top: 10px;
   border-radius: 4px;
-  border:1px solid #cdcdcd;
-  margin-bottom :3px;
+  border: 1px solid #cdcdcd;
+  margin-bottom: 3px;
   background-color: #fff;
 }
 
-
-.book{
+.book {
   height: 50px;
-  width:170px;
-  color:#4ab35f;
+  width: 170px;
+  color: #4ab35f;
   text-align: center;
-  float:left;
-  text-decoration: underline ;
+  float: left;
+  text-decoration: underline;
   cursor: pointer;
   padding-top: 10px;
 }

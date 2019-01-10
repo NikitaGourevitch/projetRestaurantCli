@@ -4,21 +4,21 @@ class Restaurants {
     this.state = {
       edit: false,
       create: false,
-      restaurants:[],
+      restaurants: [],
       nom: '',
       cuisine: '',
       nbRestaurants: 0,
       page: 0,
-      lastUsedId:0,
+      lastUsedId: 0,
       nbRestaurantsParPage: 5,
       nomRecherche: "",
-      i:0,
+      i: 0,
       cle: new Array(),
       platsCommandes: new Map(),
       creation_en_cours: false,
       edition_en_cours: false,
       infos_en_cours: false,
-      totalPrice:0,
+      totalPrice: 0,
       alert: false,
       en_edition: {
         name: '',
@@ -35,40 +35,40 @@ class Restaurants {
     }
   }
 
-  getplatsCommandes(){
+  getplatsCommandes() {
     return this.state.platsCommandes
   }
 
-  addPlatsCommandes(p){
+  addPlatsCommandes(p) {
     console.log(this.state.platsCommandes)
-    if(this.state.platsCommandes.get(p._id)){
+    if (this.state.platsCommandes.get(p._id)) {
       this.state.platsCommandes.get(p._id).qte++;
-    }else{
-      this.state.platsCommandes.set(p._id,p);
+    } else {
+      this.state.platsCommandes.set(p._id, p);
     }
     this.state.platsCommandes = new Map(this.state.platsCommandes)
-    this.state.totalPrice+=p.prix;
+    this.state.totalPrice += p.prix;
     this.state.i++;
     this.state.cle = Array.from(this.state.platsCommandes.keys())
     console.log(this.state.i)
   }
 
-  dellToCart(p){
-    if(this.state.platsCommandes.get(p._id)) {
-      if( this.state.platsCommandes.get(p._id).qte>1){
+  dellToCart(p) {
+    if (this.state.platsCommandes.get(p._id)) {
+      if (this.state.platsCommandes.get(p._id).qte > 1) {
         this.state.platsCommandes.get(p._id).qte--;
-      }else{
+      } else {
         this.state.platsCommandes.delete(p._id);
       }
-      this.state.totalPrice-=p.prix;
+      this.state.totalPrice -= p.prix;
       this.state.platsCommandes = new Map(this.state.platsCommandes);
       this.state.i++;
       this.state.cle = Array.from(this.state.platsCommandes.keys());
       console.log(this.state.i);
     }
     console.log("deleted");
-    console.log( this.state.totalPrice);
-    console.log( this.state.platsCommandes);
+    console.log(this.state.totalPrice);
+    console.log(this.state.platsCommandes);
   }
 
   getRestaurantsFromServer() {
@@ -313,7 +313,7 @@ class Restaurants {
         this.state.en_edition.note = 4;
         break;
       case "C":
-        this.state.en_edition.note= 3;
+        this.state.en_edition.note = 3;
         break;
       case "D":
         this.state.en_edition.note = 2;
