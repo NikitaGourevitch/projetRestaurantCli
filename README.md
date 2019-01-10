@@ -2,6 +2,12 @@
 
 > projet vue js tp 
 
+# Authors
+
+> **Nikita GOUREVITCH** @NikitaGourevitch
+
+> **Marc KRATZ** @MarcusGH
+
 ## Build Setup
 
 ``` bash
@@ -15,7 +21,7 @@ npm run dev
 npm run build
 ```
 
-## project informations
+## Project Informations
 
 ```
 Le serveur utilise est celui de base.
