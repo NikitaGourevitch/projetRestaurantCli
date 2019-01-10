@@ -84,7 +84,6 @@ max-height:100%" src="src/img/photoRestp.jpg"/>
     methods: {
       getRestaurantsFromServer() {
         Resto.getRestaurantsFromServer()
-        console.log(this.state.restaurants)
       },
 
       searchRestaurantsFromServer: debounce(

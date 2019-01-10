@@ -71,7 +71,6 @@
 
       ouvrirMenu() {
         this.menuActif = true;
-        console.log(this.menuActif);
       },
       abort_edition() {
         Resto.abort_edition()

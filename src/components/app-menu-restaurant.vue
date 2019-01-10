@@ -87,7 +87,6 @@
         plats = new Array();
         for (let i = 0; i < 10; i++) {
           var ipsum = new LoremIpsum();
-          console.log(ipsum.sentence(2));
 
           plats.push({
             nom: ipsum.sentence(2),
@@ -99,7 +98,6 @@
           Resto.state.lastUsedId++;
         }
 
-        console.log(plats);
         return plats;
 
       },

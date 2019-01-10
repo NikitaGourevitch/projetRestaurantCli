@@ -37,7 +37,6 @@
     },
     methods: {
       edit_restaurant(event) {
-        console.log("Coucou, je suis l'event " + event)
         Resto.edit_restaurant(event)
       },
       ajouterRestaurant(event) {

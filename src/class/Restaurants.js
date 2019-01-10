@@ -40,7 +40,7 @@ class Restaurants {
   }
 
   addPlatsCommandes(p) {
-    console.log(this.state.platsCommandes)
+    
     if (this.state.platsCommandes.get(p._id)) {
       this.state.platsCommandes.get(p._id).qte++;
     } else {
@@ -50,7 +50,6 @@ class Restaurants {
     this.state.totalPrice += p.prix;
     this.state.i++;
     this.state.cle = Array.from(this.state.platsCommandes.keys())
-    console.log(this.state.i)
   }
 
   dellToCart(p) {
@@ -64,11 +63,7 @@ class Restaurants {
       this.state.platsCommandes = new Map(this.state.platsCommandes);
       this.state.i++;
       this.state.cle = Array.from(this.state.platsCommandes.keys());
-      console.log(this.state.i);
     }
-    console.log("deleted");
-    console.log(this.state.totalPrice);
-    console.log(this.state.platsCommandes);
   }
 
   getRestaurantsFromServer() {
@@ -76,15 +71,12 @@ class Restaurants {
       this.state.page + "&name=" + this.state.nomRecherche +
       "&pagesize=" + this.state.nbRestaurantsParPage;
 
-    console.log("Je vais chercher les restaurants sur : " + url)
 
     fetch(url)
       .then((reponseJSON) => {
-        //console.log("reponse json");
         return reponseJSON.json();
       })
       .then((reponseJS) => {
-        // ici on a une réponse en JS
         this.state.restaurants = reponseJS.data;
         this.state.nbRestaurants = reponseJS.count;
 
@@ -105,7 +97,6 @@ class Restaurants {
         responseJSON.json()
           .then((res) => { // arrow function préserve le this
             // Maintenant res est un vrai objet JavaScript
-            console.log("Restaurant supprimé");
             this.getRestaurantsFromServer();
           });
       })
@@ -166,12 +157,9 @@ class Restaurants {
   }
 
   open_edit_restaurant(r) {
-    console.log(r);
     this.state.en_edition.name = r.name;
     this.state.en_edition.cuisine = r.cuisine;
     this.state.en_edition._id = r._id;
-
-    console.log(this.state.en_edition);
     this.state.alert = true;
     this.state.edition_en_cours = true;
   }
@@ -190,8 +178,6 @@ class Restaurants {
     let donneesFormulaire = new FormData(form);
 
     let url = "http://localhost:8080/api/restaurants/" + this.state.en_edition._id;
-    console.log(url)
-    console.log("edition", donneesFormulaire);
     fetch(url, {
       method: "PUT",
       body: donneesFormulaire
@@ -201,14 +187,12 @@ class Restaurants {
         responseJSON.json()
           .then((res) => { // arrow function préserve le this
             // Maintenant res est un vrai objet JavaScript
-            console.log("Restaurant inséré");
 
             // remettre le formulaire à zéro
             this.state.en_edition.nom = '';
             this.state.en_edition.cuisine = '';
             this.state.en_edition.id = '';
             this.getRestaurantsFromServer();
-            console.log(this.alert);
             this.state.alert = false;
             this.state.edition_en_cours_en_cours = false;
           });
@@ -244,14 +228,12 @@ class Restaurants {
         responseJSON.json()
           .then((res) => { // arrow function préserve le this
             // Maintenant res est un vrai objet JavaScript
-            console.log("Restaurant inséré");
 
             // remettre le formulaire à zéro
             this.state.nom = "";
             this.state.cuisine = "";
             this.state.alert = false;
             this.getRestaurantsFromServer();
-            console.log(this.alert);
             this.state.creation_en_cours = false;
           });
       })
@@ -275,7 +257,7 @@ class Restaurants {
   pageSuivante() {
     this.state.page++;
     this.getRestaurantsFromServer();
-    console.log(this.state.page)
+
   }
 
   pageMax() {
@@ -290,7 +272,6 @@ class Restaurants {
 
   derniere_page() {
     this.state.page = this.pageMax();
-    console.log((this.nbRestaurants + 1) % 10);
     this.getRestaurantsFromServer();
   }
 

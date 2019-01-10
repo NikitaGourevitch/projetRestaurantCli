@@ -51,12 +51,10 @@
       },
       addToCart(p) {
         Resto.addPlatsCommandes(p);
-        console.log(p);
         this.state = Resto.state;
         this.total = Resto.state.totalPrice;
       },
       dellToCart(p) {
-        console.log(p);
         Resto.dellToCart(p);
         this.state = Resto.state;
         this.total = Resto.state.totalPrice;
