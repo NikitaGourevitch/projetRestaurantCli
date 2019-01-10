@@ -1,7 +1,5 @@
 <template>
   <div id="app">
-
-    <h1>Resto à la carte</h1>
     <app-commande></app-commande>
     <div v-if="state.alert==true" id="edition_layer">
     <edit></edit>
@@ -93,6 +91,8 @@ export default {
     searchRestaurantsFromServer: debounce(
       function () {
       this.getRestaurantsFromServer();
+      Resto.state.page = 0;
+      this.state = Resto.state;
       }, 300),
 
     supprimerRestaurant(id) {
@@ -116,9 +116,7 @@ export default {
       Resto.open_edit_restaurant(r)
     },
 
-    getColor(index) {
-      return Resto.getColor(index)
-    },
+
 
     pagePrecedente() {
       Resto.pagePrecedente()
@@ -144,7 +142,6 @@ export default {
       Resto.changePageSize()
     },
     edit_restaurant(event){
-      console.log("Coucou, je suis l'event "+event)
       Resto.edit_restaurant(event)
     },
     ajouterRestaurant(event){

@@ -75,9 +75,11 @@
       abort_edition(){
         Resto.abort_edition()
       },
+
       addToCart(p){
         Resto.addPlatsCommandes(p)
       },
+
       crerPlats(PrixMax){
 
         let plats;
@@ -107,7 +109,6 @@
         else if (min) result = min;
         else if (max) result = max;
         else result = this._random(8, 2);
-
         return result;
       }
     }

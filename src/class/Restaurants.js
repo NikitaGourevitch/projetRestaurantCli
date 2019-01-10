@@ -48,13 +48,27 @@ class Restaurants {
     }
     this.state.platsCommandes = new Map(this.state.platsCommandes)
     this.state.totalPrice+=p.prix;
-    this.state.i++
+    this.state.i++;
     this.state.cle = Array.from(this.state.platsCommandes.keys())
     console.log(this.state.i)
   }
 
-  remPlatsCommandes(id){//TODO
-    this.state.platsCommandes.delete(id);
+  dellToCart(p){
+    if(this.state.platsCommandes.get(p._id)) {
+      if( this.state.platsCommandes.get(p._id).qte>1){
+        this.state.platsCommandes.get(p._id).qte--;
+      }else{
+        this.state.platsCommandes.delete(p._id);
+      }
+      this.state.totalPrice-=p.prix;
+      this.state.platsCommandes = new Map(this.state.platsCommandes);
+      this.state.i++;
+      this.state.cle = Array.from(this.state.platsCommandes.keys());
+      console.log(this.state.i);
+    }
+    console.log("deleted");
+    console.log( this.state.totalPrice);
+    console.log( this.state.platsCommandes);
   }
 
   getRestaurantsFromServer() {
@@ -78,6 +92,7 @@ class Restaurants {
       .catch((err) => {
         console.log("Une erreur est intervenue " + err);
       })
+
   }
 
   supprimerRestaurant(id) {
