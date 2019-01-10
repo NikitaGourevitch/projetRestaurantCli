@@ -13,7 +13,7 @@
       </div>
 
       <div id="reglages">
-        Nb restaurants par page :
+        Nombre restaurants par page :
         <input style="margin-top:10px;" type="range" min=5 max=100 value=10 v-on:input="changePageSize"
                v-model="state.nbRestaurantsParPage">
         {{state.nbRestaurantsParPage}}/{{state.nbRestaurants}}
@@ -26,12 +26,12 @@
                 <img style="max-width:100%;
 max-height:100%" src="src/img/photoRestp.jpg"/>
               </div>
-              <div style="width:75%;float:left;">{{r.name}} <br/>{{r.cuisine}}</div>
+              <div style="width:75%;float:left;"><b>Nom :</b> {{r.name}} <br/><b>Cuisine :</b> {{r.cuisine}}</div>
             </div>
 
 
             <div class="actions">
-              <div v-on:click="oppen_see_infos(r)" class="book">Infos</div>
+              <div v-on:click="oppen_see_infos(r)" class="book">Détails</div>
               <div style=" float:right; width:100px; height:100%;">
                 <img v-on:click="open_edit_restaurant(r)" class="actionIcon" src="src/img/pen.png">
                 <img v-on:click="supprimerRestaurant(r._id)" class="actionIcon" src="src/img/bin.png">

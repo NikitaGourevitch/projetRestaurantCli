@@ -15,4 +15,14 @@ npm run dev
 npm run build
 ```
 
+## project informations
+
+```
+Le serveur utilise est celui de base.
+Il en est de même pour la base de donnée.
+```
+```
+Le menu est généré aléatoirement par un système avec Lorem Ipsum
+Il est donc différent à chaque fois qu'on l'affiche
+```
 For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
